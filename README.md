@@ -1,11 +1,13 @@
 # claude-github-design
 
-The **Card Atlas** design system — a reusable, CSS-variable-themed design language for building beautiful, card-based static sites and hosting them on GitHub Pages.
+The **Card Atlas** design system + a reusable prompt for building beautiful, card-based static sites and hosting them on GitHub Pages.
 
-**Live reference:** https://bhanu-thakur.github.io/claude-github-design/
+**Live — the prompt:** https://bhanu-thakur.github.io/claude-github-design/
+**Live — the design system:** https://bhanu-thakur.github.io/claude-github-design/design-system.html
 
-- `index.html` — the design-system reference guide: a live gallery of every component, the palette, ready-to-paste re-theme snippets (Travel, Physio), and the icon set. Its `<style>` block + icon sprite are the single source of truth.
-- `REUSABLE-PROMPT.md` — a paste-and-fill prompt to generate a new site in this exact language, vet it offline, and deploy it to GitHub Pages.
+- `index.html` — the prompt landing page: use cases, the full reusable prompt with a one-click **Copy** button, a link to the design system, and a **Download .html** of the reference.
+- `design-system.html` — the design-system reference: a live gallery of every component, the palette, re-theme snippets (Travel, Physio) and the icon set. Its `<style>` block + icon sprite are the single source of truth.
+- `REUSABLE-PROMPT.md` — the same prompt as plain Markdown.
 
 ## How it stays consistent
 1. Copy the reference's `<style>` block + icon sprite **verbatim** into every page.

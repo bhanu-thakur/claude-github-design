@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Card Atlas — design system reference</title>
+<title>Card Atlas — the reusable prompt</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -183,9 +183,30 @@ a.tile:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,40,30,.05),
 @media (max-width:760px){.g2,.g3{grid-template-columns:1fr}.stats{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
 @media print{body{background:#fff}.rv{opacity:1;transform:none}.card,.stat,.tile,.closing{box-shadow:none;break-inside:avoid}section{margin-top:30px}}
+
+.toolbtn{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;text-decoration:none;border-radius:999px;padding:9px 16px;cursor:pointer;border:1px solid var(--primary);color:var(--primary);background:var(--card)}
+.toolbtn:hover{background:var(--primary-soft)}
+.toolbtn.solid{background:var(--primary);color:#fff;border-color:var(--primary)}.toolbtn.solid:hover{background:var(--primary-deep);color:#fff}
+.toolbtn .ic{width:15px;height:15px}
+.exgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px}
+.excard{border:1px solid var(--line);border-top:3px solid var(--dc,var(--primary));border-radius:16px;background:var(--card);box-shadow:var(--shadow);padding:20px 20px}
+.excard .ico{margin-bottom:13px;background:color-mix(in srgb,var(--dc) 13%,#fff);color:var(--dc)}
+.excard h3{font-size:1.1rem}
+.excard p{margin:8px 0 0;color:var(--ink-soft);font-size:.88rem;line-height:1.5}
+.excard .tg{margin-top:13px;display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.62rem;font-weight:700;color:var(--dc);border:1px solid color-mix(in srgb,var(--dc) 40%,transparent);border-radius:999px;padding:3px 11px}
+.promptbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.promptbar .lbl{font-family:'JetBrains Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint)}
+.promptbar .sp{margin-left:auto}
+.copybtn{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:.74rem;font-weight:700;border-radius:999px;padding:9px 17px;cursor:pointer;border:0;background:var(--primary);color:#fff}
+.copybtn:hover{background:var(--primary-deep)}.copybtn.ok{background:var(--good)}
+.copybtn .ic{width:15px;height:15px}
+pre.prompt{font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.65;background:#FAFBF8;border:1px solid var(--line);border-radius:14px;padding:18px 20px;color:var(--ink);overflow:auto;max-height:540px;white-space:pre-wrap;word-break:break-word;margin:0}
+.ctarow{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+
 </style></head><body>
-<!-- ICON SPRITE — general-purpose set; add <symbol> as needed, keep stroke style -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8.5 11.5 12 15l3.5-3.5M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
 <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10.5V20h12v-9.5"/><path d="M10 20v-5h4v5"/></symbol>
 <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></symbol>
 <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s6-5.6 6-10.2A6 6 0 1 0 6 10.8C6 15.4 12 21 12 21z"/><circle cx="12" cy="10.8" r="2.2"/></symbol>
@@ -219,194 +240,117 @@ a.tile:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,40,30,.05),
 </svg>
 
 <div class="topbar"><div class="bar">
-<a class="brand" href="#top"><span class="mark"><svg class="ic"><use href="#i-grid"/></svg></span><span class="bt">Card Atlas<small>design system</small></span></a>
+<a class="brand" href="index.html"><span class="mark"><svg class="ic"><use href="#i-grid"/></svg></span><span class="bt">Card Atlas<small>reusable prompt</small></span></a>
 <nav class="nav">
-<a href="#components" class="active">Components</a>
-<a href="#theme" class="hideable">Re-theme</a>
-<a class="btn" href="#icons"><svg class="ic"><use href="#i-star"/></svg> Icons</a>
+<a href="#examples" class="hideable">Use cases</a>
+<a href="#copy" class="hideable">The prompt</a>
+<a href="design-system.html">Design system</a>
+<a class="btn" href="design-system.html" download="card-atlas-design-system.html"><svg class="ic"><use href="#i-download"/></svg> Download .html</a>
 </nav>
 </div></div>
 
 <div class="wrap" id="top">
 
 <header class="hero">
-<p class="eyebrow">Reference guide · single source of truth</p>
-<h1>The Card Atlas design system</h1>
-<p class="lede">Attach this file whenever you build a new card-based site. <b>Copy the entire <code>&lt;style&gt;</code> block and the icon <code>&lt;svg&gt;</code> sprite verbatim into every page</b> — that's what keeps every project looking like one family. Below is every reusable component, the palette, and the variables to swap for a new theme.</p>
-<div class="chips">
-<span class="tnode"><svg class="ic"><use href="#i-check"/></svg> Fraunces · Inter · JetBrains Mono</span>
-<span class="tnode"><svg class="ic"><use href="#i-check"/></svg> CSS-variable themed</span>
-<span class="tnode"><svg class="ic"><use href="#i-check"/></svg> GitHub-Pages ready</span>
-</div>
-<div class="stats" style="--n:3">
-<div class="stat"><div class="big">3</div><div class="lbl">Typefaces</div><div class="sub">Serif display, sans body, mono labels &amp; numbers</div></div>
-<div class="stat" style="--cat:var(--c3)"><div class="big">1</div><div class="lbl">Stylesheet</div><div class="sub">Copied verbatim into every page of every project</div></div>
-<div class="stat" style="--cat:var(--c2)"><div class="big">~20</div><div class="lbl">Components</div><div class="sub">Compose pages from these; avoid bespoke CSS</div></div>
+<p class="eyebrow">Reusable prompt · single source of truth</p>
+<h1>Spin up a beautiful card-based site in one prompt</h1>
+<p class="lede">Paste the prompt below, attach the design system, fill in your topic — and get a multi-page, card-based site in the exact same look, ready to vet offline and host on GitHub Pages. <b>Same design language, any subject.</b></p>
+<div class="ctarow">
+<a class="toolbtn solid" href="#copy"><svg class="ic"><use href="#i-copy"/></svg> Get the prompt</a>
+<a class="toolbtn" href="design-system.html"><svg class="ic"><use href="#i-arrow"/></svg> Open the design system</a>
+<a class="toolbtn" href="design-system.html" download="card-atlas-design-system.html"><svg class="ic"><use href="#i-download"/></svg> Download .html</a>
 </div>
 </header>
 
-<!-- PRINCIPLES -->
-<section id="principles">
-<div class="sec-head"><p class="eyebrow">First principles</p><h2>The rules that keep it consistent</h2><p>If you remember nothing else, remember these.</p></div>
+<section id="examples">
+<div class="sec-head"><p class="eyebrow">Use cases</p><h2>What you can build with it</h2><p>The system is CSS-variable themed, so the same components become any of these — just change the accent and the content.</p></div>
+<div class="exgrid">
+<article class="excard rv" style="--dc:#B0532E"><span class="ico"><svg class="ic"><use href="#i-compass"/></svg></span><h3>Travel atlas</h3><p>100 stops grouped by region — each its own page with the detail you only find on the ground.</p><span class="tg">terracotta theme</span></article>
+<article class="excard rv" style="--dc:#1E6E78"><span class="ico"><svg class="ic"><use href="#i-activity"/></svg></span><h3>Recovery / physio plan</h3><p>A per-day exercise card linking to sets, reps, form cues and a progress track.</p><span class="tg">teal theme</span></article>
+<article class="excard rv" style="--dc:#1E5945"><span class="ico"><svg class="ic"><use href="#i-book"/></svg></span><h3>Skill bootcamp</h3><p>An N-day program with a locked → unlock grid and a full lesson behind each day.</p><span class="tg">sage theme</span></article>
+<article class="excard rv" style="--dc:#9A6B3F"><span class="ico"><svg class="ic"><use href="#i-heart"/></svg></span><h3>Recipe index</h3><p>Weekly meals as cards, grouped by cuisine or prep time, each with the method.</p><span class="tg">clay theme</span></article>
+<article class="excard rv" style="--dc:#2E6F8E"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><h3>Reading list</h3><p>Books by theme — notes, rating and takeaways on every card.</p><span class="tg">blue theme</span></article>
+<article class="excard rv" style="--dc:#8A5A7E"><span class="ico"><svg class="ic"><use href="#i-check"/></svg></span><h3>Onboarding guide</h3><p>New-hire steps as cards that unlock as each is completed.</p><span class="tg">plum theme</span></article>
+</div>
+</section>
+
+<section id="how">
+<div class="sec-head"><p class="eyebrow">How it works</p><h2>Four steps, every time</h2></div>
 <article class="card">
 <ol class="steps">
-<li><div><b>One stylesheet, copied verbatim.</b> The <code>&lt;style&gt;</code> block + icon sprite above are identical on every page. Never hand-edit per page.</div></li>
-<li><div><b>Tokens only.</b> Colours, fonts, <code>--radius</code>, <code>--shadow</code> and the spacing scale come from variables. Don't introduce new hex colours or arbitrary px values.</div></li>
-<li><div><b>Components over prose.</b> Lead with cards, stats, notes, steps, grids and tracks. Keep paragraphs short; let the components carry the information.</div></li>
-<li><div><b>Re-theme by variable, not by rewrite.</b> A new topic changes the accent variables (and the content) — nothing else.</div></li>
-<li><div><b>Relative links.</b> Always <code>item-2.html</code>, never <code>/item-2.html</code>, so it works under <code>username.github.io/REPO/</code>.</div></li>
+<li><div><b>Copy the prompt</b> below and fill in the <code>{...}</code> blanks — project name, item noun &amp; count, grouping, theme, repo name.</div></li>
+<li><div><b>Attach the design system</b> — download the <code>.html</code> from the header and attach it, or point to its live URL. It is the single source of truth for the look.</div></li>
+<li><div><b>Vet offline.</b> The files are built locally first; you review them before anything is published.</div></li>
+<li><div><b>Deploy to GitHub Pages</b> — public repo, upload, Pages from <code>main</code> / root. New items unlock as they're built.</div></li>
 </ol>
 </article>
 </section>
 
-<!-- COMPONENTS -->
-<section id="components">
-<div class="sec-head num"><span class="sec-num">A</span><div><p class="eyebrow">Component gallery</p><h2>Cards, stats &amp; the icon chip</h2><p>The workhorses. A plain card, a titled card with an icon chip and mono sub-label, and a category card with a coloured left bar.</p></div></div>
+<section id="copy">
+<div class="sec-head"><p class="eyebrow">The prompt</p><h2>Copy, fill the blanks, paste</h2><p>This is the full prompt. Attach the design system alongside it.</p></div>
+<article class="card">
+<div class="promptbar"><span class="lbl">Reusable build prompt</span><span class="sp"><button class="copybtn" onclick="copyPrompt(this)"><svg class="ic"><use href="#i-copy"/></svg> Copy prompt</button></span></div>
+<pre class="prompt" id="prompt">Build me a multi-page, card-based static website that I will vet offline and then host on GitHub Pages. Ask me clarifying questions (multiple-choice where possible) before doing real work, and again if scope is ambiguous.
 
-<div class="grid g2">
-<article class="card">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-book"/></svg></span><div><h3>Titled card</h3><div class="val">.card · .card-title · .ico · .val</div></div></div>
-<p class="lead">Use for any self-contained block. The 42px <code>.ico</code> chip + Fraunces <code>h3</code> + mono <code>.val</code> sub-label is the standard header.</p>
-</article>
-<article class="card cat" style="--bc:var(--c4)">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-layers"/></svg></span><div><h3>Category card</h3><div class="val">.card.cat · set --bc</div></div></div>
-<p class="lead">Add class <code>cat</code> and set <code>--bc</code> to a category accent for a coloured left bar + tinted icon. Use for grouped content (regions, weeks, body-areas).</p>
-</article>
-</div>
+## Design language — non-negotiable
+Use the attached `design-system.html` as the single source of truth.
+- Copy its **entire `&lt;style&gt;` block and the icon `&lt;svg&gt;` sprite verbatim** into every page. They must be byte-identical across all pages.
+- Use **only** the existing tokens (CSS variables), fonts (Fraunces / Inter / JetBrains Mono), `--radius`, `--shadow`, the spacing scale, and the documented component classes (`.card`, `.card.cat`, `.stat`, `.pill`, `.note`, `.steps`, `.list`, `.minigrid`, `.track`, `.cardgrid`/`.tile`, `.pagenav`, `.topbar`, `.closing`, etc.).
+- Do **not** invent new colours, fonts, radii, shadows, or arbitrary px spacing. If a new component is truly needed, derive it from existing variables and match the existing class-naming + scale.
+- **Lead with components, not prose.** Short paragraphs; let cards/stats/notes/grids carry the information.
 
-<article class="card">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-info"/></svg></span><div><h3>Pills &amp; status notes</h3><div class="val">.pill · .note</div></div></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
-<span class="pill pill--good">good</span><span class="pill pill--watch">watch</span><span class="pill pill--alert">alert</span><span class="pill pill--brand">brand</span>
-</div>
-<div class="note note--you"><svg class="ic"><use href="#i-bulb"/></svg><span><b>Note — you / tip.</b> Primary-tinted callout for guidance and "do this".</span></div>
-<div class="note note--done"><svg class="ic"><use href="#i-check"/></svg><span><b>Note — done / win.</b> Green callout for positive confirmation.</span></div>
-<div class="note note--warn"><svg class="ic"><use href="#i-warn"/></svg><span><b>Note — warn.</b> Amber callout for caution and "watch out".</span></div>
-</article>
+## Re-theme for this project
+Change **only** the `[THEME]` block in `:root` (see the &quot;Re-theme&quot; section of the reference). Pick one:
+- Keep sage green (default), **or** Travel terracotta, **or** Physio teal (snippets are in the reference), **or** a custom `--primary` I give you. Everything else stays identical.
 
-<div class="grid g2">
-<article class="card">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-check"/></svg></span><div><h3>Steps &amp; lists</h3></div></div>
-<ol class="steps"><li><div><b>Numbered step.</b> Mono counter chip; for sequences.</div></li><li><div><b>Second step.</b> Keep each to a sentence or two.</div></li></ol>
-<ul class="list" style="--bc:var(--c1)"><li><b>Bulleted item.</b> Dot uses <code>--bc</code> if set.</li><li><b>Another item.</b> For non-sequential points.</li></ul>
-</article>
-<article class="card">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-target"/></svg></span><div><h3>Mini data grid</h3><div class="val">.minigrid · .cell</div></div></div>
-<div class="minigrid" style="--m:2">
-<div class="cell"><div class="t"><svg class="ic"><use href="#i-clock"/></svg> Field</div><div class="v">value <small>unit</small></div></div>
-<div class="cell lever"><div class="t">Highlight</div><div class="v">accented</div></div>
-<div class="cell"><div class="t">Field</div><div class="v">value</div></div>
-<div class="cell"><div class="t">Field</div><div class="v">value</div></div>
-</div>
-</article>
-</div>
+## Project specifics  ← fill these in
+- **Project / brand name:** {e.g. &quot;Italy in 100 Stops&quot;}
+- **Topic &amp; goal:** {what it&#x27;s for, who reads it}
+- **Item noun &amp; count:** {e.g. 100 &quot;stops&quot; / 30 &quot;sessions&quot;} → pages `item-1.html` … `item-N.html` (use your own noun, e.g. `stop-1.html`)
+- **Grouping:** {e.g. by region / week / body-area} → use the category accents `--c1..--c6`
+- **What each item page contains:** {the sections each page should have}
+- **Header &quot;companion&quot; button (optional):** {an unrelated reference that deserves its own sticky-header button, like the B-roll plan was}
+- **Theme:** {sage / travel / physio / custom}
+- **GitHub repo name:** {e.g. italy-100-stops} → site will be `username.github.io/REPO/`
 
-<article class="card">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-activity"/></svg></span><div><h3>Segmented track</h3><div class="val">.track · .seg</div></div></div>
-<p class="lead">A proportional bar for timelines, ranges, gauges or phases. Widths via inline <code>flex</code>.</p>
-<div class="track">
-<div class="seg seg--flat" style="flex:30"><span class="sname">Phase 1</span></div>
-<div class="seg seg--good" style="flex:50"><span class="sname">Phase 2</span><span class="srange">target</span></div>
-<div class="seg seg--watch" style="flex:30"><span class="sname">Phase 3</span></div>
-<div class="seg seg--alert" style="flex:18"><span class="sname">Edge</span></div>
+## Structure
+- `index.html` = the overview / home page. Near the top (**section 2**, right after a short intro) put a responsive **`.cardgrid`** of all items. Built items are live `.tile` linking to their page; not-yet-built items are `.tile.lock` (greyed, lock icon, &quot;coming soon&quot;).
+- **Sticky header (`.topbar`) on every page:** brand → `index.html`, the main nav link(s), and any companion reference as a `.btn` button.
+- Each **item page:** hero (`.eyebrow` + `h1` + `.lede` + `.chips`), the content built from components, and a **`.pagenav`** (prev / index / next) at the bottom.
+- **Relative links only** (`item-2.html`, never `/item-2.html`) so it works under `username.github.io/REPO/`.
+- A clickable card grid is the navigation spine — make tiles responsive (`auto-fill, minmax`).
+
+## Build &amp; verify — offline first
+1. Research / gather the real content **before** building (use web search / connectors as needed).
+2. Build the pages locally.
+3. Verify each page programmatically: HTML parses, tags balanced, **every `&lt;use href=&quot;#x&quot;&gt;` has a matching `&lt;symbol id=&quot;x&quot;&gt;`**, and all internal links are relative.
+4. **Show me the files to vet before any upload.** Pause for my OK.
+
+## Deploy — only after I approve
+- Drive my logged-in GitHub via the Chrome extension: create a **public** repo `{REPO}`, upload the vetted files, enable **Pages → Deploy from a branch → main / root**.
+- Confirm the live URL `username.github.io/{REPO}/` renders.
+- **Growth:** to add an item later, create its page and flip its tile from `.lock` → live in `index.html`; push both. The card &quot;unlocks&quot; automatically.
+
+## Hosting note
+Keep the Google Fonts `&lt;link&gt;` and any `color-mix()` for hosted sites — GitHub Pages has internet, and offline vetting on a laptop with internet renders the real fonts. **Only** strip the fonts link + swap `color-mix()` for fixed hex if you specifically need a single `.html` that opens **offline on a phone**.</pre>
+<div class="ctarow">
+<a class="toolbtn" href="design-system.html"><svg class="ic"><use href="#i-arrow"/></svg> Open the design system</a>
+<a class="toolbtn" href="design-system.html" download="card-atlas-design-system.html"><svg class="ic"><use href="#i-download"/></svg> Download the reference .html</a>
 </div>
 </article>
 </section>
 
-<!-- THE GRID PATTERN -->
-<section id="cardgrid">
-<div class="sec-head num"><span class="sec-num">B</span><div><p class="eyebrow">The core pattern</p><h2>The card grid &amp; page nav</h2><p>This is the navigation spine: a responsive grid of tiles on the homepage, each linking to its own page. Built items are live; not-yet-built items are locked.</p></div></div>
-<article class="card">
-<div class="cardgrid">
-<a class="tile" href="#" style="--dc:var(--c1)"><div class="tn">ITEM 01 <svg class="ic"><use href="#i-arrow"/></svg></div><div class="tt">Live tile</div><div class="td">links to item-1.html</div><div class="go">Open <svg class="ic"><use href="#i-arrow"/></svg></div></a>
-<div class="tile lock" style="--dc:var(--c2)"><div class="tn">ITEM 02 <svg class="ic"><use href="#i-lock"/></svg></div><div class="tt">Locked tile</div><div class="td">not built yet</div><div class="go">Coming soon</div></div>
-<div class="tile lock" style="--dc:var(--c3)"><div class="tn">ITEM 03 <svg class="ic"><use href="#i-lock"/></svg></div><div class="tt">Locked tile</div><div class="td">not built yet</div><div class="go">Coming soon</div></div>
-<div class="tile lock" style="--dc:var(--c4)"><div class="tn">ITEM 04 <svg class="ic"><use href="#i-lock"/></svg></div><div class="tt">Locked tile</div><div class="td">not built yet</div><div class="go">Coming soon</div></div>
-</div>
-<div class="pagenav">
-<span class="disabled"><span class="dir">Previous</span><span class="ttl">Start</span></span>
-<a href="#"><span class="dir">Index</span><span class="ttl">All items</span></a>
-<span class="disabled nextcol"><span class="dir">Next · locked</span><span class="ttl">Item 2</span></span>
-</div>
-</article>
-</section>
-
-<!-- RE-THEME -->
-<section id="theme">
-<div class="sec-head num"><span class="sec-num">C</span><div><p class="eyebrow">Re-theme</p><h2>One project, one accent — swap these variables</h2><p>To make this system fit a new topic, change only the <code>[THEME]</code> block in <code>:root</code>. Everything else (components, layout, scale) stays identical.</p></div></div>
-<div class="swatches">
-<div class="sw"><div class="chip" style="background:var(--primary)"></div><div class="meta"><b>--primary</b>#1E5945</div></div>
-<div class="sw"><div class="chip" style="background:var(--primary-deep)"></div><div class="meta"><b>--primary-deep</b>#143E30</div></div>
-<div class="sw"><div class="chip" style="background:var(--primary-soft)"></div><div class="meta"><b>--primary-soft</b>#E7F0EA</div></div>
-<div class="sw"><div class="chip" style="background:var(--good)"></div><div class="meta"><b>--good</b>#2E8B6B</div></div>
-<div class="sw"><div class="chip" style="background:var(--watch)"></div><div class="meta"><b>--watch</b>#B7740E</div></div>
-<div class="sw"><div class="chip" style="background:var(--alert)"></div><div class="meta"><b>--alert</b>#BC4B45</div></div>
-</div>
-<article class="card" style="margin-top:18px">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-compass"/></svg></span><div><h3>Travel theme — warm terracotta</h3></div></div>
-<div class="codeblock">:root{
-  --bg:#F7F4EF; --ink:#241C16; --ink-soft:#5A5048; --ink-faint:#8A7F74;
-  --line:#E7E1D8; --line-strong:#D8D0C4; --card:#FFFFFF;
-  --primary:#B0532E; --primary-deep:#7E3A1F; --primary-soft:#F4E7DE;
-  --glow:rgba(176,83,46,.06);
-}</div>
-</article>
-<article class="card">
-<div class="card-title"><span class="ico"><svg class="ic"><use href="#i-activity"/></svg></span><div><h3>Physiotherapy theme — calm teal</h3></div></div>
-<div class="codeblock">:root{
-  --bg:#F2F5F7; --ink:#15232B; --ink-soft:#46545C; --ink-faint:#7A878F;
-  --line:#DEE6EA; --line-strong:#CDD8DD; --card:#FFFFFF;
-  --primary:#1E6E78; --primary-deep:#0F4A52; --primary-soft:#E0F0F1;
-  --glow:rgba(30,110,120,.06);
-}</div>
-<div class="note note--you"><svg class="ic"><use href="#i-info"/></svg><span>Status colours (<code>--good/--watch/--alert</code>) and the category accents usually stay put — they read the same in any theme. Only retune them if they clash with a very different <code>--primary</code>.</span></div>
-</article>
-</section>
-
-<!-- ICONS -->
-<section id="icons">
-<div class="sec-head num"><span class="sec-num">D</span><div><p class="eyebrow">Icon set</p><h2>Outline icons in the sprite</h2><p>Reference by <code>&lt;svg class="ic"&gt;&lt;use href="#i-name"/&gt;&lt;/svg&gt;</code>. Add new ones as <code>&lt;symbol&gt;</code> in the sprite, 24×24, stroke style (no fill).</p></div></div>
-<article class="card">
-<div class="iconwall">
-<div class="iw"><svg class="ic"><use href="#i-home"/></svg><span>home</span></div>
-<div class="iw"><svg class="ic"><use href="#i-grid"/></svg><span>grid</span></div>
-<div class="iw"><svg class="ic"><use href="#i-pin"/></svg><span>pin</span></div>
-<div class="iw"><svg class="ic"><use href="#i-compass"/></svg><span>compass</span></div>
-<div class="iw"><svg class="ic"><use href="#i-map"/></svg><span>map</span></div>
-<div class="iw"><svg class="ic"><use href="#i-calendar"/></svg><span>calendar</span></div>
-<div class="iw"><svg class="ic"><use href="#i-clock"/></svg><span>clock</span></div>
-<div class="iw"><svg class="ic"><use href="#i-check"/></svg><span>check</span></div>
-<div class="iw"><svg class="ic"><use href="#i-lock"/></svg><span>lock</span></div>
-<div class="iw"><svg class="ic"><use href="#i-arrow"/></svg><span>arrow</span></div>
-<div class="iw"><svg class="ic"><use href="#i-chevron"/></svg><span>chevron</span></div>
-<div class="iw"><svg class="ic"><use href="#i-star"/></svg><span>star</span></div>
-<div class="iw"><svg class="ic"><use href="#i-heart"/></svg><span>heart</span></div>
-<div class="iw"><svg class="ic"><use href="#i-bulb"/></svg><span>bulb</span></div>
-<div class="iw"><svg class="ic"><use href="#i-book"/></svg><span>book</span></div>
-<div class="iw"><svg class="ic"><use href="#i-layers"/></svg><span>layers</span></div>
-<div class="iw"><svg class="ic"><use href="#i-target"/></svg><span>target</span></div>
-<div class="iw"><svg class="ic"><use href="#i-cash"/></svg><span>cash</span></div>
-<div class="iw"><svg class="ic"><use href="#i-info"/></svg><span>info</span></div>
-<div class="iw"><svg class="ic"><use href="#i-warn"/></svg><span>warn</span></div>
-<div class="iw"><svg class="ic"><use href="#i-sun"/></svg><span>sun</span></div>
-<div class="iw"><svg class="ic"><use href="#i-moon"/></svg><span>moon</span></div>
-<div class="iw"><svg class="ic"><use href="#i-mountain"/></svg><span>mountain</span></div>
-<div class="iw"><svg class="ic"><use href="#i-building"/></svg><span>building</span></div>
-<div class="iw"><svg class="ic"><use href="#i-walk"/></svg><span>walk</span></div>
-<div class="iw"><svg class="ic"><use href="#i-activity"/></svg><span>activity</span></div>
-<div class="iw"><svg class="ic"><use href="#i-dumbbell"/></svg><span>dumbbell</span></div>
-<div class="iw"><svg class="ic"><use href="#i-camera"/></svg><span>camera</span></div>
-<div class="iw"><svg class="ic"><use href="#i-flag"/></svg><span>flag</span></div>
-<div class="iw"><svg class="ic"><use href="#i-plus"/></svg><span>plus</span></div>
-</div>
-</article>
-</section>
-
-<div class="closing"><svg class="ic"><use href="#i-flag"/></svg><div><h3>Build offline, vet, then publish</h3><p>Compose pages from these components, verify them locally, then host on GitHub Pages from <code>main</code> / root. Same look, any topic.</p></div></div>
-<div class="disc"><svg class="ic"><use href="#i-info"/></svg><span>This file is the reference. The optional reveal-on-scroll effect is included (add class <code>rv</code> to any element and keep the script below). For a single page meant to open offline on a phone, remove the Google Fonts <code>&lt;link&gt;</code> and replace any <code>color-mix()</code> with a fixed hex — otherwise keep both for the full look.</span></div>
-<div class="sign">Card Atlas · design system reference · v1</div>
+<div class="closing"><svg class="ic"><use href="#i-arrow"/></svg><div><h3>Build offline, vet, then publish</h3><p>Pair this prompt with the design system and you get one consistent visual language across every project — a reels bootcamp, a travel atlas, a physio plan — all hosted from your GitHub.</p></div></div>
+<div class="sign">Card Atlas · reusable prompt + design system · v1</div>
 </div>
 <script>
+function copyPrompt(btn){
+ var text=document.getElementById('prompt').innerText;
+ var restore='<svg class="ic"><use href="#i-copy"/></svg> Copy prompt';
+ function done(){btn.classList.add('ok');btn.innerHTML='<svg class="ic"><use href="#i-check"/></svg> Copied';setTimeout(function(){btn.classList.remove('ok');btn.innerHTML=restore;},1800);}
+ function fb(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);done();}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fb);}else{fb();}
+}
 (function(){var r=matchMedia('(prefers-reduced-motion: reduce)').matches,it=document.querySelectorAll('.rv');
 if(r||!('IntersectionObserver'in window)){it.forEach(e=>e.classList.add('in'));return;}
 var io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
