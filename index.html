@@ -178,7 +178,7 @@ a.tile:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,40,30,.05),
 .iw span{display:block;margin-top:7px;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--ink-faint)}
 
 /* reveal-on-scroll (optional; add class "rv" to any element) */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+
 .rv.in{opacity:1;transform:none}
 @media (max-width:760px){.g2,.g3{grid-template-columns:1fr}.stats{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
@@ -203,7 +203,13 @@ a.tile:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,40,30,.05),
 pre.prompt{font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1.65;background:#FAFBF8;border:1px solid var(--line);border-radius:14px;padding:18px 20px;color:var(--ink);overflow:auto;max-height:540px;white-space:pre-wrap;word-break:break-word;margin:0}
 .ctarow{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
 
-</style></head><body>
+
+/* scroll reveal — sections & cards fade in as they enter the viewport */
+html.js-reveal .hero,html.js-reveal .sec-head,html.js-reveal .card,html.js-reveal .stat,html.js-reveal .daycard,html.js-reveal .day,html.js-reveal .tile,html.js-reveal .excard,html.js-reveal .daynav,html.js-reveal .pagenav,html.js-reveal .closing{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.22,.61,.36,1),transform .6s cubic-bezier(.22,.61,.36,1)}
+html.js-reveal .reveal-in{opacity:1!important;transform:none!important}
+@media (prefers-reduced-motion:reduce){html.js-reveal .hero,html.js-reveal .sec-head,html.js-reveal .card,html.js-reveal .stat,html.js-reveal .daycard,html.js-reveal .day,html.js-reveal .tile,html.js-reveal .excard,html.js-reveal .daynav,html.js-reveal .pagenav,html.js-reveal .closing{opacity:1;transform:none;transition:none}}
+</style>
+<script>document.documentElement.classList.add("js-reveal")</script></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M8.5 11.5 12 15l3.5-3.5M5 16v2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/></symbol>
 <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
@@ -294,7 +300,8 @@ pre.prompt{font-family:'JetBrains Mono',monospace;font-size:.78rem;line-height:1
 
 ## Design language — non-negotiable
 Use the attached `design-system.html` as the single source of truth.
-- Copy its **entire `&lt;style&gt;` block and the icon `&lt;svg&gt;` sprite verbatim** into every page. They must be byte-identical across all pages.
+- Copy its **entire `&lt;style&gt;` block, the icon `&lt;svg&gt;` sprite, the one-line reveal flag in `&lt;head&gt;`, and the reveal-observer script at the foot** verbatim into every page. They must be byte-identical across all pages.
+- **Scroll-reveal is automatic** — sections, cards, stats and tiles fade up as they enter the viewport, no per-element tagging needed. Keep those two small scripts and it works everywhere.
 - Use **only** the existing tokens (CSS variables), fonts (Fraunces / Inter / JetBrains Mono), `--radius`, `--shadow`, the spacing scale, and the documented component classes (`.card`, `.card.cat`, `.stat`, `.pill`, `.note`, `.steps`, `.list`, `.minigrid`, `.track`, `.cardgrid`/`.tile`, `.pagenav`, `.topbar`, `.closing`, etc.).
 - Do **not** invent new colours, fonts, radii, shadows, or arbitrary px spacing. If a new component is truly needed, derive it from existing variables and match the existing class-naming + scale.
 - **Lead with components, not prose.** Short paragraphs; let cards/stats/notes/grids carry the information.
@@ -351,9 +358,6 @@ function copyPrompt(btn){
  function fb(){var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);done();}
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fb);}else{fb();}
 }
-(function(){var r=matchMedia('(prefers-reduced-motion: reduce)').matches,it=document.querySelectorAll('.rv');
-if(r||!('IntersectionObserver'in window)){it.forEach(e=>e.classList.add('in'));return;}
-var io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-it.forEach(e=>io.observe(e));})();
+(function(){var sel='.hero,.sec-head,.card,.stat,.daycard,.day,.tile,.excard,.daynav,.pagenav,.closing';var els=[].slice.call(document.querySelectorAll(sel));var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;if(reduce||!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('reveal-in')});return;}var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('reveal-in');io.unobserve(e.target);}})},{threshold:.12,rootMargin:'0px 0px -36px 0px'});els.forEach(function(e){io.observe(e)});})();
 </script>
 </body></html>

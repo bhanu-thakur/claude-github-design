@@ -10,7 +10,8 @@ Build me a multi-page, card-based static website that I will vet offline and the
 
 ## Design language — non-negotiable
 Use the attached `design-system.html` as the single source of truth.
-- Copy its **entire `<style>` block and the icon `<svg>` sprite verbatim** into every page. They must be byte-identical across all pages.
+- Copy its **entire `<style>` block, the icon `<svg>` sprite, the one-line reveal flag in `<head>`, and the reveal-observer script at the foot** verbatim into every page. They must be byte-identical across all pages.
+- **Scroll-reveal is automatic** — sections, cards, stats and tiles fade up as they enter the viewport, no per-element tagging needed. Keep those two small scripts and it works everywhere.
 - Use **only** the existing tokens (CSS variables), fonts (Fraunces / Inter / JetBrains Mono), `--radius`, `--shadow`, the spacing scale, and the documented component classes (`.card`, `.card.cat`, `.stat`, `.pill`, `.note`, `.steps`, `.list`, `.minigrid`, `.track`, `.cardgrid`/`.tile`, `.pagenav`, `.topbar`, `.closing`, etc.).
 - Do **not** invent new colours, fonts, radii, shadows, or arbitrary px spacing. If a new component is truly needed, derive it from existing variables and match the existing class-naming + scale.
 - **Lead with components, not prose.** Short paragraphs; let cards/stats/notes/grids carry the information.
